@@ -124,7 +124,7 @@ def local_stop(H,c):
     print ("a=", a, "b=",b)
     if(a==0 or b==0):
       return 1
-    else
+    else:
       return 0
 
 
@@ -199,20 +199,20 @@ def main(argv=sys.argv[1:]):
       while not ls:
         arg_max = -10000 # change to 0?
         l_2b_added = 0
-        for l in literals:
+        for l in Literals_List:
           score = local_score(b,l) #b is a list of element same as l
           if score > arg_max:
             arg_max = score
             l_2b_added = l
         if l == -10000:
-          print "*******Error: no literal is being added, local score not working"
+          print("*******Error: no literal is being added, local score not working")
         b = b + l
-        ls = localstop(H,b)
+        ls = local_stop(H,b)
       #extra pruning neglecting
       if global_score(H) < global_score(H + b):
         H = H + b
       if (global_score(H) > global_score(H + b)):
-        break
+       break
     return H
 
 if __name__ == '__main__':
