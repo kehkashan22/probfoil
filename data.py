@@ -37,6 +37,7 @@ class DataFile(object):
             arguments = [None] * arity
 
         query = Term(predicate_name, *arguments)
+        
         return self._database.engine.query(self._database, query)
 
     def ground(self, rule, functor=None, arguments=None):
