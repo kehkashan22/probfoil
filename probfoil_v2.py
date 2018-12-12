@@ -101,6 +101,8 @@ def main(argv=sys.argv[1:]):
     # grounding is also a dicyionary
     # print(values)
     # print("Types:", types)
+
+    #Literals
     Literals_List = []
     for i in values.keys():
         name = i[0]
@@ -112,7 +114,7 @@ def main(argv=sys.argv[1:]):
         print(g1)
         temp = Predicate(name, arity, g1, data.evaluate(None, name, g1, None), types[i])
         Literals_List.append(temp)
-    print(Literals_List)
+    
         
 
     
@@ -122,10 +124,6 @@ def argparser():
     parser = argparse.ArgumentParser()
     parser.add_argument('files', nargs='+')
     return parser
-
-if __name__ == '__main__':
-    main()
-
 
 # def rule_Calc(rule):
 #     trial_pi_phi= data.evaluate(rule, arguments=groundings)
