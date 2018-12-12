@@ -76,6 +76,7 @@ def rule_Calc(rule):
     f_pos = 0.0  
     t_neg = 0.0
     f_neg = 0.0
+    trial_pi_phi= data.evaluate(rule, arguments=groundings)
     pi_list= prev_list
     phi_list= list(trial_pi_phi.values())
     if(len(rule)<=0):
