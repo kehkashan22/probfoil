@@ -34,6 +34,7 @@ class DataFile(object):
             arguments = [None] * arity
 
         query = Term(predicate_name, *arguments)
+        import pdb; pdb.set_trace()
         return self._database.engine.query(self._database, query)
 
     def ground(self, rule, functor=None, arguments=None):
@@ -126,57 +127,57 @@ if __name__ == '__main__':
     main()
 
 
-def rule_Calc(rule):
-    t_pos = 0.0 
-    f_pos = 0.0  
-    t_neg = 0.0
-    f_neg = 0.0
-    pi_list= prev_list
-    phi_list= list(trial_pi_phi.values())
-    # need to re-confirm how to do this.is evaluate, ground and values used here
-    for pi, phi in zip(pi_list,phi_list): # need to confirm what to put here.wonky answers!
-      ni=1- pi
-      nhi=1-phi
-      t_pos_i= min(pi,phi)
-      t_neg_i= min(ni, nhi)
-      f_pos_i= max(0, t_neg_i - ni)
-      f_neg_i=  max(0,pi- t_pos_i)
-      t_pos+=t_pos_i 
-      f_pos+= f_pos_i
-      f_neg+= f_neg_i
-      t_neg+= t_neg_i
-    return t_pos, f_pos, t_neg, f_neg
+# def rule_Calc(rule):
+#     t_pos = 0.0 
+#     f_pos = 0.0  
+#     t_neg = 0.0
+#     f_neg = 0.0
+#     # pi_list= prev_list
+#     # phi_list= list(trial_pi_phi.values())
+#     # need to re-confirm how to do this.is evaluate, ground and values used here
+#     for pi, phi in zip(pi_list,phi_list): # need to confirm what to put here.wonky answers!
+#       ni=1- pi
+#       nhi=1-phi
+#       t_pos_i= min(pi,phi)
+#       t_neg_i= min(ni, nhi)
+#       f_pos_i= max(0, t_neg_i - ni)
+#       f_neg_i=  max(0,pi- t_pos_i)
+#       t_pos+=t_pos_i 
+#       f_pos+= f_pos_i
+#       f_neg+= f_neg_i
+#       t_neg+= t_neg_i
+#     return t_pos, f_pos, t_neg, f_neg
 
-def finding_accuracy(rule):
-    t_pos, f_pos, t_neg, f_neg= rule_Calc(rule)
-    return (t_pos + t_neg)/ (t_pos + f_pos + t_neg + f_neg)
-def finding_recall(rule):
-    t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
-    return (t_pos) / (t_pos + f_neg)
-def finding_precision(rule):
-    t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
-    return (t_pos) / (t_pos + f_pos)
-def finding_m_est(rule):
-    t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
-    pos= t_pos + f_neg
-    neg= t_neg+f_pos
-    return (t_pos+(m* pos/(pos+neg)))/ (t_pos+f_pos+m)
+# def finding_accuracy(rule):
+#     t_pos, f_pos, t_neg, f_neg= rule_Calc(rule)
+#     return (t_pos + t_neg)/ (t_pos + f_pos + t_neg + f_neg)
+# def finding_recall(rule):
+#     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+#     return (t_pos) / (t_pos + f_neg)
+# def finding_precision(rule):
+#     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+#     return (t_pos) / (t_pos + f_pos)
+# def finding_m_est(rule):
+#     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+#     pos= t_pos + f_neg
+#     neg= t_neg+f_pos
+#     return (t_pos+(m* pos/(pos+neg)))/ (t_pos+f_pos+m)
   
-def local_score(H, c):
-    list_h_u_c= H + c
-    l_score= finding_m_est(list_h_u_c)- finding_m_est(H)
-    return l_score
-def local_stop(H,c):
-    list_h_u_c= H + c
-    t_pos_h_c, f_pos_h_c, t_neg_h_c, f_neg_h_c= rule_Calc(list_h_u_c)
-    t_pos_c, f_pos_c, t_neg_c, f_neg_c= rule_Calc(c)
-    t_pos_h, f_pos_h, t_neg_h, f_neg_h= rule_Calc(H)
-    a= t_pos_h_c- t_pos_h
-    b= f_pos_c
-    print ("a=", a, "b=",b)
-    if(a==0 or b==0):
-      return 1
-    else
-      return 0
+# def local_score(H, c):
+#     list_h_u_c= H + c
+#     l_score= finding_m_est(list_h_u_c)- finding_m_est(H)
+#     return l_score
+# def local_stop(H,c):
+#     list_h_u_c= H + c
+#     t_pos_h_c, f_pos_h_c, t_neg_h_c, f_neg_h_c= rule_Calc(list_h_u_c)
+#     t_pos_c, f_pos_c, t_neg_c, f_neg_c= rule_Calc(c)
+#     t_pos_h, f_pos_h, t_neg_h, f_neg_h= rule_Calc(H)
+#     a= t_pos_h_c- t_pos_h
+#     b= f_pos_c
+#     print ("a=", a, "b=",b)
+#     if(a==0 or b==0):
+#       return 1
+#     else:
+#       return 0
   
  
