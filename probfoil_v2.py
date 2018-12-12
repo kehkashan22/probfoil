@@ -101,6 +101,8 @@ def main(argv=sys.argv[1:]):
     # grounding is also a dicyionary
     # print(values)
     # print("Types:", types)
+    target = data.query('learn', 1)[0]
+    target_name, target_arity = target[0].args
     Literals_List = []
     for i in values.keys():
         name = i[0]
@@ -109,10 +111,10 @@ def main(argv=sys.argv[1:]):
         print(g)
         # print(name, arity, g)
         g1 = [r for r in data.query(name, arity)]
-        print(g1)
+        # print(g1)
         temp = Predicate(name, arity, g1, data.evaluate(None, name, g1, None), types[i])
         Literals_List.append(temp)
-    print(Literals_List)
+    # print(Literals_List)
         
 
     
