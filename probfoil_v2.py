@@ -12,7 +12,8 @@ class Predicate:
     def __init__(self, name, arity, groundings, pi_dict, types):
         self.name = name
         self.arity = arity
-        self.pi_dict = pi_dict #keys are groundings and values are pi for them
+        self.phi_dict = pi_dict #keys are groundings and values are pi for them
+        self.pi_dict = pi_dict
         self.groundings = groundings
         self.types = types
         
@@ -101,7 +102,7 @@ def main(argv=sys.argv[1:]):
                 groundings[t].add(value) 
     # print(values)
     # print(groundings) #predicate name, arity is the key and value: actual groundings
-    # grounding is also a dicyionary
+    # grounding is also a dictionary
     # print(values)
     # print("Types:", types)
 
@@ -127,6 +128,7 @@ def argparser():
     parser = argparse.ArgumentParser()
     parser.add_argument('files', nargs='+')
     return parser
+
 
 #anchal code
 #target_predicate 
@@ -159,8 +161,12 @@ return H
 
 
 
+
+if __name__ == '__main__':
+    main()
+
+
 def rule_Calc(rule):
-    trial_pi_phi= data.evaluate(rule, arguments=groundings)
     t_pos = 0.0 
     f_pos = 0.0  
     t_neg = 0.0
@@ -208,7 +214,8 @@ def local_stop(H,c):
     a= t_pos_h_c- t_pos_h
     b= f_pos_c
     print ("a=", a, "b=",b)
-    if(a==0 or b=0):
+    if(a==0 or b==0):
       return 1
     else
       return 0
+
