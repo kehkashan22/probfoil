@@ -69,7 +69,8 @@ def argparser():
     parser = argparse.ArgumentParser()
     parser.add_argument('files', nargs='+')
     return parser
-
+#Srishti code
+m=1
 def rule_Calc(rule):
     t_pos = 0.0 
     f_pos = 0.0  
@@ -77,6 +78,8 @@ def rule_Calc(rule):
     f_neg = 0.0
     pi_list= prev_list
     phi_list= list(trial_pi_phi.values())
+    if(len(rule)<=0):
+        return 0,0,0,0
     # need to re-confirm how to do this.is evaluate, ground and values used here
     for pi, phi in zip(pi_list,phi_list): # need to confirm what to put here.wonky answers!
       ni=1- pi
@@ -91,7 +94,7 @@ def rule_Calc(rule):
       t_neg+= t_neg_i
     return t_pos, f_pos, t_neg, f_neg
 
-def finding_accuracy(rule):
+def global_score(rule):#accuracy
     t_pos, f_pos, t_neg, f_neg= rule_Calc(rule)
     return (t_pos + t_neg)/ (t_pos + f_pos + t_neg + f_neg)
 def finding_recall(rule):
@@ -191,12 +194,12 @@ def main(argv=sys.argv[1:]):
 
     while True:
       b = []
-      ls = localstop(H,b)
+      ls = local_stop(H,b)
       while not ls:
         arg_max = -10000 # change to 0?
         l_2b_added = 0
         for l in literals:
-          score = localscore(b,l) #b is a list of element same as l
+          score = local_score(b,l) #b is a list of element same as l
           if score > arg_max:
             arg_max = score
             l_2b_added = l
@@ -205,9 +208,9 @@ def main(argv=sys.argv[1:]):
         b = b + l
         ls = localstop(H,b)
       #extra pruning neglecting
-      if globalscore(H) < globalscore(H + b):
+      if global_score(H) < global_score(H + b):
         H = H + b
-      if (globalscore(H) > globalscore(H + b)):
+      if (global_score(H) > global_score(H + b)):
         break
     return H
 
