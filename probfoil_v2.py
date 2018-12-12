@@ -102,6 +102,7 @@ def main(argv=sys.argv[1:]):
     # grounding is also a dictionary
     # print(values)
     # print("Types:", types)
+
     target = data.query('learn', 1)[0]
     target_name, target_arity = target[0].args
     Literals_List = []
@@ -115,7 +116,6 @@ def main(argv=sys.argv[1:]):
         # print(g1)
         temp = Predicate(name, arity, g1, data.evaluate(None, name, g1, None), types[i])
         Literals_List.append(temp)
-    # print(Literals_List)
         
 def argparser():
     parser = argparse.ArgumentParser()
@@ -174,7 +174,7 @@ def local_stop(H,c):
     a= t_pos_h_c- t_pos_h
     b= f_pos_c
     print ("a=", a, "b=",b)
-    if(a==0 or b=0):
+    if(a==0 or b==0):
       return 1
     else
       return 0
