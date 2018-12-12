@@ -97,17 +97,25 @@ def rule_Calc(rule):
 
 def global_score(rule):#accuracy
     t_pos, f_pos, t_neg, f_neg= rule_Calc(rule)
+    if(t_pos + f_pos + t_neg + f_neg ==0):
+        return 0
     return (t_pos + t_neg)/ (t_pos + f_pos + t_neg + f_neg)
 def finding_recall(rule):
     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+    if(t_pos + f_neg ==0):
+        return 0
     return (t_pos) / (t_pos + f_neg)
 def finding_precision(rule):
     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+    if(t_pos + f_pos ==0):
+        return 0
     return (t_pos) / (t_pos + f_pos)
 def finding_m_est(rule):
     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
     pos= t_pos + f_neg
     neg= t_neg+f_pos
+    if(t_pos + f_pos + m ==0):
+        return 0
     return (t_pos+(m* pos/(pos+neg)))/ (t_pos+f_pos+m)
   
 def local_score(H, c):
