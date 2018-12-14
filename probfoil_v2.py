@@ -86,45 +86,53 @@ def argparser():
     parser.add_argument('files', nargs='+')
     return parser
 #Srishti code
-# def rule_Calc(rule):
-    # m=1
-#     t_pos = 0.0 
-#     f_pos = 0.0  
-#     t_neg = 0.0
-#     f_neg = 0.0
-#     trial_pi_phi= data.evaluate(rule, arguments=groundings)
-#     pi_list= prev_list
-#     phi_list= list(trial_pi_phi.values())
-#     if(len(rule)<=0):
-#         return 0,0,0,0
-#     # need to re-confirm how to do this.is evaluate, ground and values used here
-#     for pi, phi in zip(pi_list,phi_list): # need to confirm what to put here.wonky answers!
-#       ni=1- pi
-#       nhi=1-phi
-#       t_pos_i= min(pi,phi)
-#       t_neg_i= min(ni, nhi)
-#       f_pos_i= max(0, t_neg_i - ni)
-#       f_neg_i=  max(0,pi- t_pos_i)
-#       t_pos+=t_pos_i 
-#       f_pos+= f_pos_i
-#       f_neg+= f_neg_i
-#       t_neg+= t_neg_i
-#     return t_pos, f_pos, t_neg, f_neg
+m=1
+def rule_Calc(rule):
+    t_pos = 0.0 
+    f_pos = 0.0  
+    t_neg = 0.0
+    f_neg = 0.0
+    trial_pi_phi= data.evaluate(rule, arguments=groundings)
+    pi_list= prev_list
+    phi_list= list(trial_pi_phi.values())
+    if(len(rule)<=0):
+        return 0,0,0,0
+    # need to re-confirm how to do this.is evaluate, ground and values used here
+    for pi, phi in zip(pi_list,phi_list): # need to confirm what to put here.wonky answers!
+      ni=1- pi
+      nhi=1-phi
+      t_pos_i= min(pi,phi)
+      t_neg_i= min(ni, nhi)
+      f_pos_i= max(0, t_neg_i - ni)
+      f_neg_i=  max(0,pi- t_pos_i)
+      t_pos+=t_pos_i 
+      f_pos+= f_pos_i
+      f_neg+= f_neg_i
+      t_neg+= t_neg_i
+    return t_pos, f_pos, t_neg, f_neg
 
-# def global_score(rule):#accuracy
-#     t_pos, f_pos, t_neg, f_neg= rule_Calc(rule)
-#     return (t_pos + t_neg)/ (t_pos + f_pos + t_neg + f_neg)
-# def finding_recall(rule):
-#     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
-#     return (t_pos) / (t_pos + f_neg)
-# def finding_precision(rule):
-#     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
-#     return (t_pos) / (t_pos + f_pos)
-# def finding_m_est(rule):
-#     t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
-#     pos= t_pos + f_neg
-#     neg= t_neg+f_pos
-#     return (t_pos+(m* pos/(pos+neg)))/ (t_pos+f_pos+m)
+def global_score(rule):#accuracy
+    t_pos, f_pos, t_neg, f_neg= rule_Calc(rule)
+    if(t_pos + f_pos + t_neg + f_neg ==0):
+        return 0
+    return (t_pos + t_neg)/ (t_pos + f_pos + t_neg + f_neg)
+def finding_recall(rule):
+    t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+    if(t_pos + f_neg ==0):
+        return 0
+    return (t_pos) / (t_pos + f_neg)
+def finding_precision(rule):
+    t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+    if(t_pos + f_pos ==0):
+        return 0
+    return (t_pos) / (t_pos + f_pos)
+def finding_m_est(rule):
+    t_pos, f_pos, t_neg, f_neg = rule_Calc(rule)
+    pos= t_pos + f_neg
+    neg= t_neg+f_pos
+    if(t_pos + f_pos + m ==0):
+        return 0
+    return (t_pos+(m* pos/(pos+neg)))/ (t_pos+f_pos+m)
   
 # def local_score(H, c):
 #     list_h_u_c= H + c
